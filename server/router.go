@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"rest-api-test/controller"
+	"net/http"
 )
 
 func GetRouter() *gin.Engine {
@@ -11,4 +12,8 @@ func GetRouter() *gin.Engine {
 	router.GET("/index", controller.IndexAction)
 
 	return router
+}
+
+func GetRouterHandle() {
+	http.HandleFunc("/index", controller.HandleIndexAction)
 }
