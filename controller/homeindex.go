@@ -3,9 +3,11 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"fmt"
+	"log"
 	"encoding/json"
 	"net/http"
 	"bytes"
+	"rest-api-test/database"
 )
 
 type Sample struct {
@@ -31,6 +33,14 @@ func HandleIndexAction(w http.ResponseWriter, r *http.Request) {
 		Name: "テストなまえその２",
 		Comment: "この人はクレーマーです（う",
 	}
+	params := r.URL.Query()
+	jsonStr, err := json.Marshal(params)
+	if err != nil {
+		fmt.Print("失敗")
+		log.Println(jsonStr)
+	}
+	context := params["context"]
+	database.DBInsert("タイトル", context[0])
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
 	enc.Encode(&sample)
