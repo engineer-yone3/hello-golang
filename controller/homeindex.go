@@ -39,8 +39,8 @@ func HandleIndexAction(w http.ResponseWriter, r *http.Request) {
 		fmt.Print("失敗")
 		log.Println(jsonStr)
 	}
-	context := params["context"]
-	database.DBInsert("タイトル", context[0])
+	context := params["context"][0]
+	database.DBInsert("タイトル", context)
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
 	enc.Encode(&sample)
